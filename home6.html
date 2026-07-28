@@ -1213,12 +1213,12 @@
   #experience_fundview .hero-copy-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* left-align children; box itself stays put */
-    gap: 1.85rem;
+    align-items: flex-start;
+    gap: 1.5rem;
     min-width: 0;
     width: 100%;
     max-width: 36rem;
-    margin-inline: auto; /* keep block position */
+    margin-inline: auto;
     transform: none;
     text-align: left;
     container-type: inline-size;
@@ -1437,7 +1437,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.35rem;
+    gap: 1rem;
     min-width: 0;
     width: 100%;
   }
@@ -1526,15 +1526,15 @@
       to top,
       #000 0%,
       #000 18%,
-      rgba(0, 0, 0, 0.55) 48%,
-      transparent 100%
+      rgba(0, 0, 0, 0.55) 42%,
+      transparent 65%
     );
     mask-image: linear-gradient(
       to top,
       #000 0%,
       #000 18%,
-      rgba(0, 0, 0, 0.55) 48%,
-      transparent 100%
+      rgba(0, 0, 0, 0.55) 42%,
+      transparent 65%
     );
   }
 
@@ -5518,11 +5518,17 @@
       border: 0;
     }
 
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet" data-experience-fundview="">
+  <link rel="stylesheet" href="HOME_Section_Explore FUNDVIEW2/assets_experience/tailwind-compiled.css" data-experience-fundview="">
+  <!-- Post-Tailwind: scroll guide must win over Experience Tailwind button resets -->
+  <style id="home6-scroll-guide">
     /* ——— Scroll guide arrow (floating site tour button) ——— */
-    .scroll-guide {
+    button.scroll-guide {
+      --scroll-guide-footer-bottom: 0px;
       position: fixed;
-      right: 1.75rem;
-      bottom: 1.75rem;
+      right: calc(1.75rem + env(safe-area-inset-right, 0px));
+      bottom: max(calc(1.75rem + env(safe-area-inset-bottom, 0px)), var(--scroll-guide-footer-bottom));
       z-index: 900;
       display: flex;
       align-items: center;
@@ -5532,31 +5538,37 @@
       padding: 0;
       border: 0;
       border-radius: 50%;
-      background: #0a2e57;
+      background-color: #0a2e57;
+      background-image: none;
       color: #fff;
       cursor: pointer;
       box-shadow: 0 12px 28px rgba(7, 31, 58, 0.35);
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      transition: bottom 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     /* Over dark sections: invert so the control stays visible */
-    .scroll-guide.is-on-dark {
-      background: #fff;
+    button.scroll-guide.is-on-dark {
+      background-color: #fff;
       color: #0a2e57;
       box-shadow: 0 12px 28px rgba(7, 31, 58, 0.22);
     }
 
-    .scroll-guide:hover,
-    .scroll-guide:focus-visible {
-      background: #00b7b3;
+    button.scroll-guide:hover,
+    button.scroll-guide:focus-visible {
+      background-color: #00b7b3;
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 0 16px 32px rgba(0, 183, 179, 0.4);
     }
 
-    .scroll-guide.is-on-dark:hover,
-    .scroll-guide.is-on-dark:focus-visible {
-      background: #00b7b3;
+    button.scroll-guide:focus-visible {
+      outline: 3px solid #f2b632;
+      outline-offset: 4px;
+    }
+
+    button.scroll-guide.is-on-dark:hover,
+    button.scroll-guide.is-on-dark:focus-visible {
+      background-color: #00b7b3;
       color: #fff;
       box-shadow: 0 16px 32px rgba(0, 183, 179, 0.4);
     }
@@ -5568,17 +5580,17 @@
       transition: transform 0.35s ease;
     }
 
-    .scroll-guide.is-up .scroll-guide__inner {
+    button.scroll-guide.is-up .scroll-guide__inner {
       transform: rotate(180deg);
     }
 
-    .scroll-guide svg {
+    button.scroll-guide svg {
       width: 22px;
       height: 22px;
       animation: scroll-guide-bob 2.2s ease-in-out infinite;
     }
 
-    .scroll-guide.is-up svg {
+    button.scroll-guide.is-up svg {
       animation: none;
     }
 
@@ -5588,21 +5600,30 @@
     }
 
     @media (max-width: 720px) {
-      .scroll-guide {
-        right: 1rem;
-        bottom: 1rem;
+      button.scroll-guide {
+        right: calc(1rem + env(safe-area-inset-right, 0px));
+        bottom: max(calc(1rem + env(safe-area-inset-bottom, 0px)), var(--scroll-guide-footer-bottom));
         width: 46px;
         height: 46px;
       }
 
-      .scroll-guide svg {
+      button.scroll-guide svg {
         width: 20px;
         height: 20px;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      button.scroll-guide,
+      .scroll-guide__inner {
+        transition: none;
+      }
+
+      button.scroll-guide svg {
+        animation: none;
+      }
+    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet" data-experience-fundview="">
-  <link rel="stylesheet" href="HOME_Section_Explore FUNDVIEW2/assets_experience/tailwind-compiled.css" data-experience-fundview="">
   <!-- Post-Tailwind: mid-desktop glass diagonal safe area (must load last) -->
   <style id="home6-mid-desktop-glass-fit">
     @media (min-width: 1024px) and (max-width: 1300px) {
@@ -6952,7 +6973,7 @@
         #fv-hero .fv-saved{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--fv-teal);position:absolute;left:50%;right:auto;top:77%;z-index:2;box-sizing:border-box;width:max-content;max-width:none;min-width:0;margin:0;padding:0;opacity:0;transform:translate(-50%,-50%) scale(.96);pointer-events:none;visibility:hidden;overflow:visible;transition:opacity .55s ease,transform .55s ease,visibility 0s linear .55s}
         #fv-hero .fv-saved.fv-on{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;visibility:visible;transition:opacity .55s ease,transform .55s ease,visibility 0s}
         /* Fonts scale with arc width (cqw) — locked to 1920×1080 / 320px-arc balance */
-        #fv-hero .fv-saved-num{font-size:clamp(2.15rem,3.4vw,4.5rem);font-size:20.4cqw;font-weight:800;line-height:0.92;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
+        #fv-hero .fv-saved-num{font-size:clamp(2.15rem,3.4vw,4.5rem);font-size:17cqw;font-weight:800;line-height:0.92;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
         #fv-hero .fv-saved-label{display:flex;flex-direction:column;align-items:center;gap:0.04em;margin-top:0.22rem;font-size:clamp(0.62rem,0.9vw,0.96rem);font-size:4.8cqw;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;line-height:1.1;max-width:100%}
         #fv-hero .fv-saved-line{display:block;white-space:nowrap}
         /* Noon stem trim on After is driven in JS (smooth y1 → midpoint) */
@@ -7896,8 +7917,24 @@
       const btn = document.getElementById("scroll-guide");
       if (!btn) return;
 
-      const sectionSelector =
-        ".experience_fundview, .quicklinks, .news_and_updates, .stats, .solution_delivers, .daily_improvements_fundview, .see_in_action, .helping_local_testimonial, .customer_story, .listening_evolving, .ready_to_see_fundview, .site-footer";
+      /* Keep every page band and its actual background contrast in one registry. */
+      const sectionRegistry = [
+        { selector: ".experience_fundview", theme: "dark" },
+        { selector: ".quicklinks", theme: "dark" },
+        { selector: ".news_and_updates", theme: "dark" },
+        { selector: ".stats", theme: "dark" },
+        { selector: ".solution_delivers", theme: "light" },
+        { selector: ".daily_improvements_fundview", theme: "light" },
+        { selector: ".see_in_action", theme: "dark" },
+        { selector: ".helping_local_testimonial", theme: "light" },
+        { selector: ".customer_story", theme: "dark" },
+        { selector: ".listening_evolving", theme: "light" },
+        { selector: ".ready_to_see_fundview", theme: "dark" },
+        { selector: ".site-footer", theme: "dark" }
+      ];
+      const sectionSelector = sectionRegistry.map(function (entry) {
+        return entry.selector;
+      }).join(", ");
 
       function getSections() {
         return [...document.querySelectorAll(sectionSelector)];
@@ -7905,23 +7942,6 @@
 
       let sections = getSections();
       if (!sections.length) return;
-
-      /* Dark backgrounds → white guide + navy arrow; light → navy guide + white arrow */
-      const DARK = {
-        news_and_updates: true,
-        experience_fundview: true,
-        see_in_action: true,
-        customer_story: true,
-        ready_to_see_fundview: true,
-        "site-footer": true
-      };
-      const LIGHT = {
-        stats: true,
-        solution_delivers: true,
-        daily_improvements_fundview: true,
-        helping_local_testimonial: true,
-        listening_evolving: true
-      };
 
       function headerOffset() {
         const header = document.querySelector(".site-header");
@@ -7951,21 +7971,43 @@
       }
 
       function isDarkSection(el) {
-        if (!el || !el.classList) return false;
-        for (const cls of Object.keys(DARK)) {
-          if (el.classList.contains(cls)) return true;
-        }
-        for (const cls of Object.keys(LIGHT)) {
-          if (el.classList.contains(cls)) return false;
-        }
-        return false;
+        if (!el || !el.matches) return false;
+        const entry = sectionRegistry.find(function (item) {
+          return el.matches(item.selector);
+        });
+        return entry ? entry.theme === "dark" : false;
+      }
+
+      /*
+       * When the footer's bottom row enters the viewport, keep the global guide
+       * above that whole control area. This avoids covering social/legal links
+       * across desktop and stacked mobile layouts without guessing their width.
+       */
+      function updateFooterClearance() {
+        btn.style.setProperty("--scroll-guide-footer-bottom", "0px");
+        const footerBottom = document.querySelector(".site-footer__bottom");
+        if (!footerBottom) return 0;
+
+        const row = footerBottom.getBoundingClientRect();
+        if (row.top >= window.innerHeight || row.bottom <= 0) return 0;
+
+        const gap = 16;
+        const maximumBottom = Math.max(gap, window.innerHeight - btn.offsetHeight - gap);
+        const clearBottom = Math.min(maximumBottom, window.innerHeight - row.top + gap);
+        const applied = Math.max(0, clearBottom);
+        btn.style.setProperty("--scroll-guide-footer-bottom", applied + "px");
+        return applied;
       }
 
       function update() {
+        const footerClearance = updateFooterClearance();
         const up = atBottom();
         btn.classList.toggle("is-up", up);
         btn.setAttribute("aria-label", up ? "Back to top" : "Scroll to next section");
-        btn.classList.toggle("is-on-dark", isDarkSection(sectionUnderGuide()));
+        /* Footer clearance can lift the control into the previous band; keep dark
+           contrast while the guide is actively avoiding footer controls. */
+        const dark = footerClearance > 0 || isDarkSection(sectionUnderGuide());
+        btn.classList.toggle("is-on-dark", dark);
       }
 
       btn.addEventListener("click", function () {
@@ -7991,6 +8033,12 @@
 
       window.addEventListener("scroll", update, { passive: true });
       window.addEventListener("resize", update);
+      const footerObserver = new MutationObserver(function () {
+        if (!document.querySelector(".site-footer__bottom")) return;
+        update();
+        footerObserver.disconnect();
+      });
+      footerObserver.observe(document.body, { childList: true, subtree: true });
       update();
     })();
 
